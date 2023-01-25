@@ -43,11 +43,15 @@ function decode(expr) {
     let arr = expr.split('');
 
     for(let i = 0; i<arr.length; i++) {
+        if(arr[i] == ' ') {
+            res += '**********';
+            continue;
+        }
         for(key in MORSE_TABLE) {
             if(MORSE_TABLE[key] == arr[i]){
                 morse += key;
 
-                let numArr = morse.split('').map(e => e === '-' ? '10' : e === '.' ? '11' : null).join('')
+                let numArr = morse.split('').map(e => e === '-' ? '11' : e === '.' ? '10' : null).join('')
 
                 if(numArr.length < 10){
                     let a = 10 - numArr.length;
@@ -59,6 +63,9 @@ function decode(expr) {
                 }
 
                 res += numArr;
+                numArr = '';
+                morse = '';
+                
             }
         }
     }
